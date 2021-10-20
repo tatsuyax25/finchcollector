@@ -1,4 +1,6 @@
 from django.shortcuts import render
+# render in django renders template
+from .models import Finch
 
 # Add the following import
 from django.http import HttpResponse
@@ -10,3 +12,7 @@ def home(request):
     
 def about(request):
     return render(request, 'about.html')
+
+def finches_index(request):
+    finches = Finch.objects.all()
+    return render(request, 'finches/index.html', { 'finches': finches })
