@@ -14,5 +14,8 @@ def about(request):
     return render(request, 'about.html')
 
 def finches_index(request):
+    # let tell our model what to do
+    # model go find all the finches in the database
+    # don't forget to import your model
     finches = Finch.objects.all()
     return render(request, 'finches/index.html', { 'finches': finches })
