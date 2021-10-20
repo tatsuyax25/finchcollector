@@ -1,5 +1,6 @@
 from django.shortcuts import render
 # render in django renders template
+from django.views.generic.edit import CreateView
 from .models import Finch
 
 # Add the following import
@@ -19,3 +20,13 @@ def finches_index(request):
     # don't forget to import your model
     finches = Finch.objects.all()
     return render(request, 'finches/index.html', { 'finches': finches })
+
+class FinchCreate(CreateView):
+    model = Finch
+    fields = '__all__'
+    success_url ='/finches/'
+
+def finches_detail(request, finch_id):
+    finch = Finch.objects.get(id=finch_id)
+    return render(request, 'finches/detail.html', {'finch': finch})
+    
