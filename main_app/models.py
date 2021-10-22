@@ -8,12 +8,26 @@ MEALS = (
     ('L', 'Lunch'),
     ('D', 'Dinner')
 )
+
+class Toy(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
+      
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('toys_detail', kwargs={'pk': self.id})
+      
+
 # Add the Finch class & list and view function below the imports
 class Finch(models.Model): # Note that parens are optional if not inheriting from another class
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=200)
     age = models.IntegerField() 
+    # Add the M:M relationship
+    toys = models.ManyToManyField(Toy)
     
 
     def __str__(self):
