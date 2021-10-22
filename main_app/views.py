@@ -2,6 +2,8 @@ from django.shortcuts import render
 # render in django renders template
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Finch
+# Import the FeedingForm
+from .forms import FeedingForm
 
 # Add the following import
 from django.http import HttpResponse
@@ -23,7 +25,12 @@ def finches_index(request):
 
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
-    return render(request, 'finches/detail.html', {'finch': finch})
+    # instantiate FeedingForm to be rendered in the template
+    feeding_form = FeedingForm()
+    return render(request, 'finches/detail.html', {
+        # include the finch and feeding_form in the context
+        'finch': finch, 'feeding_form': feeding_form
+    })
 
 class FinchCreate(CreateView):
     model = Finch
